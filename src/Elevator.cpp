@@ -1,6 +1,8 @@
 #include <cassert>
 #include <vector>
 #include <map>
+#include <queue>
+
 enum Directions {
     IDLE,
     UP,
@@ -19,8 +21,7 @@ public:
 private:
     int _currentFloor;
     int _direction;
-    int _capacity;
-    int _numPassengers;
+    
 };
 
 class ElevatorController {
@@ -33,8 +34,8 @@ public:
 
     }
 
-    void add_request(int from, int to) {
-        // when i put in a request, i want to find the elevator going the same direction and before the from.
+    
+    void addRequest(int from, int to) {
         Directions direction;
         if (from > to) {
             direction = Directions::DOWN;
