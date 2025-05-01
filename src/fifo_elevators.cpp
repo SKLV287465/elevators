@@ -60,14 +60,14 @@ public:
         // find elevators that can take this request on the way
         if (requestDirection == UP) {
             // look at elevators below this
-
+            _finishLocationElevator.find()
         } else if (requestDirection == DOWN) {
             // look at elevators above this
         }
         // find elevator that can finish their requests 
         // then get to this request first
 
-        // add 
+
     }
 
 private:
