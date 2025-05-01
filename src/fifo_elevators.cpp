@@ -19,25 +19,19 @@ private:
     std::unordered_multimap<int, Request> _destinations;
     int _floor;
 
-    class greaterRequest {
-    public:
+    struct HighToLow {
+        bool operator()(Request a, Request b) {
+            return a.to > b.to;
+        }
+    };
+    struct LowToHigh {
         bool operator()(Request a, Request b) {
             return a.to < b.to;
         }
     };
-    class lesserRequest {
-    public:
-        bool operator()(Request a, Request b) {
-            return b.to < a.to;
-        }
 
-    };
-
-    bool compare = [](Request a, Request b) {
-        return a.to < b.to;
-    }
-    std::priority_queue<Request, std::vector<int>, decltype(compare)> _upQueue;
-    std::priority_queue<Request, std::vector<int>, std::less<int>> _downQueue;
+    std::priority_queue<Request, std::vector<int>, HighToLow> _upQueue;
+    std::priority_queue<Request, std::vector<int>, LowToHigh> _downQueue;
 };
 
 class Request {
@@ -57,8 +51,19 @@ public:
 class ElevatorController {
 public:
     void addRequest(Request request) {
+        Direction requestDirection;
+        if (request.to < request.from) {
+            requestDirection = DOWN;
+        } else {
+            requestDirection = UP;
+        }
         // find elevators that can take this request on the way
+        if (requestDirection == UP) {
+            // look at elevators below this
 
+        } else if (requestDirection == DOWN) {
+            // look at elevators above this
+        }
         // find elevator that can finish their requests 
         // then get to this request first
 
@@ -73,9 +78,9 @@ private:
     void _findFastest(Request request) {
 
     }
-
-    std::map<int, std::vector<Elevator>> _finishLocationElevator;
-    std::queue<Request> _queuedElevators;
+    int levels;
+    std::multimap<int, Elevator>  _finishLocationElevator;
+    std::queue<Request> _queuedRequests;
 };
 
 int main() {
